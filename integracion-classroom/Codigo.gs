@@ -1,5 +1,5 @@
 /** Balam · integración institucional. No contiene credenciales ni resultados de alumnos. */
-const BALAM_CONFIG = {courseId:'889024738153',domain:'jaliscoedu.mx',sourceRef:'8ba38825f5fca342e4082dfdf6e8a1882d100487',repo:'soybran07/aventura-matematica'};
+const BALAM_CONFIG = {courseId:'889024738153',domain:'jaliscoedu.mx',sourceRef:'f42388b9c1f9a8321a48bac2e480d987d50fd923',repo:'soybran07/aventura-matematica'};
 function props_(){return PropertiesService.getScriptProperties()}
 function api_(path,method,body){const response=UrlFetchApp.fetch('https://classroom.googleapis.com/v1/'+path,{method:method||'get',headers:{Authorization:'Bearer '+ScriptApp.getOAuthToken()},contentType:'application/json',payload:body===undefined?undefined:JSON.stringify(body),muteHttpExceptions:true});const status=response.getResponseCode();if(status<200||status>=300)throw Error('Classroom respondió '+status+': '+(JSON.parse(response.getContentText()||'{}').error||{}).message);return JSON.parse(response.getContentText()||'{}')}
 function list_(path,field){let all=[],token='';do{const data=api_(path+(path.indexOf('?')<0?'?':'&')+'pageSize=100'+(token?'&pageToken='+encodeURIComponent(token):''));all=all.concat(data[field]||[]);token=data.nextPageToken||''}while(token);return all}
