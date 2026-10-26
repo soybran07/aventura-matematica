@@ -21,7 +21,9 @@ El servidor verifica la cuenta de Google y la inscripción, valida respuestas y 
 
 Pruebas locales: identidad vacía y externa rechazadas; cuenta no inscrita rechazada; un alumno no puede configurar tareas; secuencia y respuestas validadas; intentos conservados; reenvío idempotente; cinco notas de 66.67/100 calculadas correctamente; solo borradores; vista docente sin escritura de notas.
 
-Pendiente hasta completar la autorización: habilitación de API, despliegue institucional y prueba real de envío a Classroom. No se han creado notas reales durante las pruebas.
+Estado al 26 de octubre de 2026: autorización concedida; API operativa; aplicación web desplegada como docente con acceso al dominio; cinco tareas de 100 puntos publicadas, cada una asignada a los tres alumnos inscritos. Probada la carga del juego, el inicio de sesión docente, la validación remota de una respuesta y el guardado de una llave. Pendiente: recorrido completo desde una cuenta real de alumno y verificación de su draftGrade en Classroom. No se han creado notas reales durante las pruebas.
+
+La versión actual conserva un resultado por alumno y mundo. Volver a entrar recupera el progreso; no crea una nota nueva. Para otra evaluación independiente, se requiere ampliar el puente con identificadores de sesión y nuevas tareas creadas por el mismo proyecto; duplicar una tarea manualmente no configura ese vínculo. Los juegos 01 y 02 aún son práctica sin conexión a notas.
 
 ## Archivos de mantenimiento
 
