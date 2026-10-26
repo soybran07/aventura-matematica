@@ -20,7 +20,7 @@ El paisaje, las plataformas, los guardianes, los huecos y la historia del Templo
 
 ## Estado al 26 de octubre de 2026
 
-Apps Script autorizado, Classroom API operativa, aplicación web versión 3 desplegada como docente y acceso limitado al dominio institucional. Siete tareas publicadas. Los datos de alumnos permanecen en propiedades privadas del proyecto, fuera del repositorio público. El acceso se deniega si no se puede verificar la identidad o la inscripción.
+Apps Script autorizado, Classroom API operativa, aplicación web versión 5 desplegada como docente y acceso limitado al dominio institucional. Siete tareas publicadas. Los datos de alumnos permanecen en propiedades privadas del proyecto, fuera del repositorio público. El acceso se deniega si no se puede verificar la identidad o la inscripción.
 
 Validación: 54 preguntas de los dos primeros juegos comparadas con el banco original; 60 variantes aritméticas conservadas. Recorridos de plataformas asistidos en todos los niveles, obstáculos, pisotones, recuperación tardía de tres monedas, redondeo y límite100. Pruebas del servidor: identidad y rol, rutas, secuencia, tipos de respuesta numérica/construcción/comparación, reintentos idempotentes, monedas únicas y escrituras exclusivamente de draftGrade. Prueba real con cuenta docente: carga, inicio, respuesta incorrecta y corrección. Aún falta confirmar una partida completa y su nota desde una cuenta real de alumno.
 
@@ -29,3 +29,10 @@ Una nueva visita recupera el resultado del mismo alumno y mundo. Para una evalua
 ## Mantenimiento
 
 Codigo.gs contiene servidor, banco, puente y cliente listos para Apps Script. appsscript.json declara permisos y Classroom v1. configurarClassroom crea/reutiliza las tareas del proyecto sin duplicarlas; publicarTareas publica los enlaces y el criterio. Las actualizaciones se despliegan como nueva versión sobre la misma implementación para conservar las URL de Classroom. No se necesitan permisos nuevos para este rediseño.
+
+## Actualización de movimiento y vidas
+
+Plataformas procedurales con semilla por entrada al nivel, variación de anchura, altura, separación y número de plataformas. La distribución permanece estable durante esa partida y al reaparecer. Tres corazones (seis medios corazones); cactus: medio corazón; caída o contacto lateral: un corazón. Protección de 1.8 segundos tras recibir daño. La bandera central se activa al cruzarla con la mitad de las puertas resueltas. Agotar los corazones devuelve al inicio o a la bandera central activada y repone los tres; respuestas y monedas se conservan. Los resultados académicos siguen guardándose en el servidor independientemente de las vidas. Se bloquea el desplazamiento de la página y se ajusta el escenario a la ventana; los diálogos conservan desplazamiento interno.
+
+Validación adicional: 280 recorridos completos con semillas y mundos distintos, cactus de medio corazón, protección contra daño repetido, reinicio de vidas, reaparición en checkpoint y conservación de preguntas y monedas.
+
