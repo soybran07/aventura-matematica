@@ -43,3 +43,8 @@ Validación adicional: 280 recorridos completos con semillas y mundos distintos,
 La aplicación se amplió con cinco juegos de multiplicación independientes, niveles8–12 y claves internas7–11; ahora hay doce tareas en total. Los siete juegos anteriores conservan su banco, motor y referencia de arte. Las tareas nuevas pertenecen al tema03 (895575401239), se crean con configurarMultiplicacion y se publican con publicarMultiplicacion. No se requieren nuevos permisos. La configuración del tema usa su identificador verificado en la interfaz de Classroom, sin pedir acceso adicional a la API de temas.
 
 Mecánicas y validación en multiplicacion/README.md. Pruebas reproducibles: node multiplicacion/tests/servidor.cjs y node multiplicacion/tests/cliente.cjs desde la raíz del repositorio. Los datos de estudiantes permanecen fuera del repositorio.
+
+
+## Ruta ordenada y pantallas compactas
+
+Los niveles se recorren así: números (dos), sumas y restas (cinco) y multiplicación (cinco). Se desbloquea el siguiente cuando se registran todas las respuestas del anterior. Se respetan los resultados existentes y la dificultad elegida se conserva al reanudar un nivel institucional. El servidor verifica los requisitos al abrir enlaces y al registrar avances, incluidas las llamadas desde pestañas antiguas. La práctica pública comprueba el progreso guardado en el navegador.
