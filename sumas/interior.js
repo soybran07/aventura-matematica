@@ -27,5 +27,6 @@ function escenaRocas(i,deadline,status=''){
 }
 function finTemplo(){
  mode='finish';
- show('<div class="templeScene papyrus"><div class="eyebrow">EXPEDICIÓN COMPLETADA</div><h2>'+(st.diamond?'¡Escapaste con el diamante!':'Templo de los números completado')+'</h2><p>'+ (st.diamond?'◆ +1 en el examen de valor posicional (máximo 10).':'Tu avance anterior se conserva.')+'</p><div class="actions">'+BalamRuta.botonSiguiente(world)+'<button id="templeMenu">Menú</button></div></div>','Salida del templo');$('templeMenu').onclick=menu;
+ show('<div class="templeScene papyrus"><div class="eyebrow">EXPEDICIÓN COMPLETADA</div><h2>'+(st.diamond?'¡Escapaste con el diamante!':'Templo de los números completado')+'</h2><p>'+ (st.diamond?'◆ +1 en el examen de valor posicional (máximo 10).':'Tu avance anterior se conserva.')+'</p><div class="actions">'+BalamRuta.botonSiguiente(world)+(st.teacherPreview?'<button id="replayTemple">Reiniciar mi vista docente</button>':'')+'<button id="templeMenu">Menú</button></div></div>','Salida del templo');$('templeMenu').onclick=menu;
+ const replay=$('replayTemple');if(replay)replay.onclick=async()=>{if(busy)return;busy=true;replay.disabled=true;try{st=await ClassroomLink.call('reiniciarTemploDocente',[]);route=st.route;spawn();hud();resume();}catch(e){replay.textContent=e.message;replay.disabled=false;}finally{busy=false;}};
 }
