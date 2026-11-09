@@ -15,7 +15,7 @@ function stop(){keys.left=keys.right=false;auto=false}
 function score(){const base=Math.round(st.records.filter(r=>r.tries===0).length/count()*10000)/100;return{base,bonus:st.coins.length*5,total:Math.min(100,Math.round((base+st.coins.length*5)*100)/100)}}
 function hasError(){return st.pending.tries>0||st.records.some(r=>r.tries>0)}
 function hud(){$('worldTitle').textContent=WORLDS[world].title;$('chapter').textContent=(world>=5?'JUEGO '+(world-4):'SUMAS Y RESTAS '+(world+1))+' · '+WORLDS[world].topic;$('seals').textContent=(esTemplo()&&st.done<5?st.done+' / 5 llaves':st.done+' / '+count()+' retos');$('stats').textContent=st.coins.length+' / 3 monedas mayas · '+stomps+' guardianes';document.title=WORLDS[world].title+' · Balam';healthHud()}
-function show(html,label){stop();$('overlay').classList.remove('hide');$('card').className='card '+(mode==='problem'?'problem-card':'');$('card').innerHTML=html;$('card').setAttribute('aria-label',label);($('card').querySelector('.lectura')||$('card').querySelector('input,button,select,a[href]'))?.focus({preventScroll:true})}
+function show(html,label){stop();$('overlay').classList.remove('lavaOverlay');$('overlay').classList.remove('hide');$('card').className='card '+(mode==='problem'?'problem-card':'');$('card').innerHTML=html;$('card').setAttribute('aria-label',label);($('card').querySelector('.lectura')||$('card').querySelector('input,button,select,a[href]'))?.focus({preventScroll:true})}
 function resume(){stop();mode='play';$('overlay').classList.add('hide');canvas.focus({preventScroll:true});msg(st.done===count()?'Busca las monedas entre las hojas o llega a Luna.':'Explora y salta. Pulsa E junto al siguiente arco.');}
 function menu(){
  mode='menu';save();const lock=BalamRuta.bloqueo(world);
