@@ -47,3 +47,7 @@ El examen de valor posicional se abre después de los juegos 01 y 02. El identif
 Hay 12 preguntas: tres de identificación, tres de valor, tres de construcción y tres de comparación. El servidor prepara un banco por intento, registra la primera opción de cada reto y controla el plazo. Cada acierto agrega un tramo a la estela; 12/12 = 10. El tiempo limita cuántos retos se responden, pero no agrega puntos. Apoyo 210 s, normal 150 s, reto 120 s. El resultado queda en borrador en Classroom; la práctica pública puede repetirse y no envía notas. Al caducar un intento en una pestaña cerrada, el servidor finaliza y sincroniza al regresar al examen. El código se ejecuta con `python integracion-classroom/armar-examen.py` para actualizar el paquete `Codigo.gs`.
 
 Para próximos temas, se puede reutilizar la arena y la validación con un banco y una tarea independientes para cada examen. Mantener por separado la nota académica y cualquier bonificación de velocidad.
+
+### Expedición del Juego 01
+
+Cinco llaves abren la pirámide; los retos 6 a 9 son saltos de lava y el 10 es la salida cronometrada (24/18/12 segundos). La huida fallida no reinicia la travesía. El servidor valida el sello y otorga el diamante una vez por cuenta. El examen aplica 10 puntos sobre 100 al cerrar, con tope de 100. Se mantienen los enlaces y los avances previos. Las partidas ya cerradas conservan su resultado original.

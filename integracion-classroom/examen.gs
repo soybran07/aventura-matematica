@@ -15,9 +15,9 @@ function examenEstado_(who){const raw=props_().getProperty(stateKey_(who,EXAMEN_
 function examenGuardar_(who,s){props_().setProperty(stateKey_(who,EXAMEN_W),JSON.stringify(s));}
 function examenPublico_(who,s){const idx=s.respuestas.length, p=s.terminado?null:BalamExamen.banco(s.seed)[idx];return{
  indice:idx,aciertos:s.aciertos,ahora:Date.now(),limite:s.limite,terminado:s.terminado===true,
- pregunta:p?{texto:p.texto,opciones:p.opciones}:null,nota:s.grade??null,estado:s.estado||null,acierto:s.respuestas[idx-1],
+ pregunta:p?{texto:p.texto,opciones:p.opciones}:null,nota:s.grade??null,diamante:s.bonoTemplo||0,estado:s.estado||null,acierto:s.respuestas[idx-1],
  siguiente:s.terminado?MUL_APP_URL+'?nivel=1':null};}
-function examenCerrar_(who,s){if(!s.terminado){s.terminado=true;s.grade=BalamExamen.nota(s.aciertos);s.estado=who.teacher?'docente':'pendiente';examenGuardar_(who,s);}
+function examenCerrar_(who,s){if(!s.terminado){s.terminado=true;s.bonoTemplo=JSON.parse(props_().getProperty(stateKey_(who,5))||'{}').diamond===true?10:0;s.grade=Math.min(100,BalamExamen.nota(s.aciertos)+s.bonoTemplo);s.estado=who.teacher?'docente':'pendiente';examenGuardar_(who,s);}
  if(s.estado==='pendiente'){try{syncGrade_(who,EXAMEN_W,s);s.estado='enviado';examenGuardar_(who,s);}catch(e){console.warn('No se pudo sincronizar el examen: '+e.message);}}
  return examenPublico_(who,s);
 }

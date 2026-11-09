@@ -24,3 +24,17 @@ result=run('responderExamenBalam(1,0)');assert.equal(result.nota,8.33);assert.eq
 assert.deepEqual(writes,[{draftGrade:8.33}]);assert.equal(run('cerrarExamenBalam().nota'),8.33);assert.equal(writes.length,1);
 for(let n=0;n<100;n++)assert.ok(run('BalamExamen.banco('+n+').every(p=>new Set(p.opciones).size===3&&p.opciones.includes(p.correcta))'));
 console.log('PASS: requisitos, reloj, primer contacto, nota y borrador por cuenta.');
+store.set('RESULT:s:5',JSON.stringify({route:'apoyo',done:9,records:Array.from({length:9},()=>({attempts:1})),pending:{attempts:0,hints:0,correct:false},coins:[]}));
+assert.throws(()=>run("registrarRespuesta(5,'apoyo',9,700,null)"),/tiempo/);
+assert.equal(run('iniciarHuidaTemplo()'),24000);
+time+=25000;
+assert.throws(()=>run("registrarRespuesta(5,'apoyo',9,700,null)"),/tiempo/);
+run('iniciarHuidaTemplo()');
+assert.equal(run("registrarRespuesta(5,'apoyo',9,700,null).correct"),true);
+assert.equal(run("avanzarReto(5,'apoyo',9).diamond"),true);
+store.delete('RESULT:s:12');
+run("iniciarExamenBalam('apoyo')");
+time+=211000;
+assert.equal(run('cerrarExamenBalam().nota'),10);
+assert.equal(run('cerrarExamenBalam().diamante'),10);
+console.log('PASS: sello cronometrado, reintento y diamante institucional.');
