@@ -1,0 +1,26 @@
+const {readFileSync}=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const src=readFileSync(require('node:path').join(__dirname,'../integracion-classroom/Codigo.gs'),'utf8');
+const store=new Map([['OWNER','t@jaliscoedu.mx'],['TASKS','{"12":"examen"}']]), writes=[];
+let user='t@jaliscoedu.mx', time=10000000;
+class Clock extends Date {static now(){return time}}
+const cache={get:()=>null,put(){}};
+const b={console,Date:Clock,PropertiesService:{getScriptProperties:()=>({getProperty:k=>store.get(k),setProperty:(k,v)=>store.set(k,v)})},Session:{getActiveUser:()=>({getEmail:()=>user})},CacheService:{getScriptCache:()=>cache},LockService:{getScriptLock:()=>({waitLock(){},releaseLock(){}})},ScriptApp:{getOAuthToken:()=>''},UrlFetchApp:{fetch:(url,opts)=>{
+ if(opts.method==='patch')writes.push(JSON.parse(opts.payload));return{getResponseCode:()=>200,getContentText:()=>JSON.stringify(url.endsWith('/students?pageSize=100')?{students:[{userId:'s',profile:{emailAddress:user}}]}:url.includes('studentSubmissions?')?{studentSubmissions:[{id:'sub'}]}:{})};
+ }}};
+vm.createContext(b);vm.runInContext(src,b);const run=s=>vm.runInContext(s,b);
+assert.throws(()=>run("iniciarExamenBalam('practica')"),/niveles anteriores/);
+for(const id of ['teacher-preview','s'])for(const [w,n] of [[5,10],[6,8]])store.set('RESULT:'+id+':'+w,JSON.stringify({done:n,records:Array(n).fill({})}));
+const start=run("iniciarExamenBalam('practica')");assert.equal(start.limite-time,150000);
+assert.equal(run("iniciarExamenBalam('reto').limite"),start.limite);
+assert.equal(start.pregunta.correcta,undefined);
+assert.throws(()=>run('responderExamenBalam(5,0)'),/recuperar/);
+let result;
+for(let i=0;i<12;i++){const option=run("(()=>{let p=BalamExamen.banco(examenEstado_(identity_()).seed)["+i+"];return p.opciones.indexOf(p.correcta)})()");result=run('responderExamenBalam('+i+','+option+')');if(i===0)assert.equal(run('responderExamenBalam(0,0).indice'),1);}
+assert.equal(result.nota,100);assert.equal(result.estado,'docente');assert.equal(writes.length,0);
+user='s@jaliscoedu.mx';run("iniciarExamenBalam('apoyo')");assert.equal(run('cerrarExamenBalam().terminado'),false);
+const option=run('(()=>{let p=BalamExamen.banco(examenEstado_(identity_()).seed)[0];return p.opciones.indexOf(p.correcta)})()');
+run('responderExamenBalam(0,'+option+')');time+=211000;
+result=run('responderExamenBalam(1,0)');assert.equal(result.nota,8.33);assert.equal(result.indice,1);assert.equal(result.estado,'enviado');
+assert.deepEqual(writes,[{draftGrade:8.33}]);assert.equal(run('cerrarExamenBalam().nota'),8.33);assert.equal(writes.length,1);
+for(let n=0;n<100;n++)assert.ok(run('BalamExamen.banco('+n+').every(p=>new Set(p.opciones).size===3&&p.opciones.includes(p.correcta))'));
+console.log('PASS: requisitos, reloj, primer contacto, nota y borrador por cuenta.');

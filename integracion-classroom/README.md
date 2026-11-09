@@ -20,7 +20,7 @@ El paisaje, las plataformas, los guardianes, los huecos y la historia del Templo
 
 ## Estado al 26 de octubre de 2026
 
-Apps Script autorizado, Classroom API operativa, aplicación web versión 6 desplegada como docente y acceso limitado al dominio institucional. Siete tareas publicadas. Los datos de alumnos permanecen en propiedades privadas del proyecto, fuera del repositorio público. El acceso se deniega si no se puede verificar la identidad o la inscripción.
+Apps Script autorizado, Classroom API operativa, aplicación web versión 5 desplegada como docente y acceso limitado al dominio institucional. Siete tareas publicadas. Los datos de alumnos permanecen en propiedades privadas del proyecto, fuera del repositorio público. El acceso se deniega si no se puede verificar la identidad o la inscripción.
 
 Validación: 54 preguntas de los dos primeros juegos comparadas con el banco original; 60 variantes aritméticas conservadas. Recorridos de plataformas asistidos en todos los niveles, obstáculos, pisotones, recuperación tardía de tres monedas, redondeo y límite100. Pruebas del servidor: identidad y rol, rutas, secuencia, tipos de respuesta numérica/construcción/comparación, reintentos idempotentes, monedas únicas y escrituras exclusivamente de draftGrade. Prueba real con cuenta docente: carga, inicio, respuesta incorrecta y corrección. Aún falta confirmar una partida completa y su nota desde una cuenta real de alumno.
 
@@ -36,15 +36,14 @@ Plataformas procedurales con semilla por entrada al nivel, variación de anchura
 
 Validación adicional: 280 recorridos completos con semillas y mundos distintos, cactus de medio corazón, protección contra daño repetido, reinicio de vidas, reaparición en checkpoint y conservación de preguntas y monedas.
 
-
-
-## Sección 03 añadida
-
-La aplicación se amplió con cinco juegos de multiplicación independientes, niveles8–12 y claves internas7–11; ahora hay doce tareas en total. Los siete juegos anteriores conservan su banco, motor y referencia de arte. Las tareas nuevas pertenecen al tema03 (895575401239), se crean con configurarMultiplicacion y se publican con publicarMultiplicacion. No se requieren nuevos permisos. La configuración del tema usa su identificador verificado en la interfaz de Classroom, sin pedir acceso adicional a la API de temas.
-
-Mecánicas y validación en multiplicacion/README.md. Pruebas reproducibles: node multiplicacion/tests/servidor.cjs y node multiplicacion/tests/cliente.cjs desde la raíz del repositorio. Los datos de estudiantes permanecen fuera del repositorio.
-
-
 ## Ruta ordenada y pantallas compactas
 
 Los niveles se recorren así: números (dos), sumas y restas (cinco) y multiplicación (cinco). Se desbloquea el siguiente cuando se registran todas las respuestas del anterior. Se respetan los resultados existentes y la dificultad elegida se conserva al reanudar un nivel institucional. El servidor verifica los requisitos al abrir enlaces y al registrar avances, incluidas las llamadas desde pestañas antiguas. La práctica pública comprueba el progreso guardado en el navegador.
+
+## Juego 03 · Concretando lo aprendido — Examen
+
+El examen de valor posicional se abre después de los juegos 01 y 02. El identificador interno 12 (enlace `?nivel=13`) mantiene los enlaces anteriores. Publicar con `publicarExamenPosicional` desde la cuenta docente, después de actualizar la misma implementación web. Crea o recupera la tarea de 100 puntos en el tema 01, con enlace institucional y sin permisos nuevos. Hasta publicar la tarea, el examen no bloquea los demás niveles del curso.
+
+Hay 12 preguntas: tres de identificación, tres de valor, tres de construcción y tres de comparación. El servidor prepara un banco por intento, registra la primera opción de cada reto y controla el plazo. Cada acierto agrega un tramo a la estela; 12/12 = 10. El tiempo limita cuántos retos se responden, pero no agrega puntos. Apoyo 210 s, normal 150 s, reto 120 s. El resultado queda en borrador en Classroom; la práctica pública puede repetirse y no envía notas. Al caducar un intento en una pestaña cerrada, el servidor finaliza y sincroniza al regresar al examen. El código se ejecuta con `python integracion-classroom/armar-examen.py` para actualizar el paquete `Codigo.gs`.
+
+Para próximos temas, se puede reutilizar la arena y la validación con un banco y una tarea independientes para cada examen. Mantener por separado la nota académica y cualquier bonificación de velocidad.

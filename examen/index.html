@@ -1,0 +1,15 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Balam · Juego 03 · Examen</title><link rel="stylesheet" href="estilo.css"></head>
+<body><main>
+<header><div><small>REGULARIZACIÓN · JUEGO 03</small><strong>Balam: concretando lo aprendido</strong></div><span class="badge">EXAMEN</span></header>
+<section id="marcador" hidden><span id="ronda"></span><div><label for="crece" id="marca">Crecimiento</label><progress id="crece" max="12" value="0"></progress></div><b id="reloj"></b></section>
+<h1 id="pregunta" hidden></h1>
+<div class="campo" id="campo"><canvas id="arena" tabindex="0" aria-label="Arena del jaguar Balam; dirige con flechas o cursor"></canvas>
+<section id="panel" class="velo"><div class="tarjeta">
+<small>LA SENDA DEL JAGUAR</small><h2 id="titulo">Unidades, decenas y centenas</h2>
+<p id="texto">Guía a Balam y recoge el número correcto. Cada acierto hace crecer su estela.</p>
+<div id="inicio"><label for="ritmo">Dificultad</label><select id="ritmo"><option value="apoyo">Con apoyo · 3:30</option><option value="practica" selected>Normal · 2:30</option><option value="reto">Reto · 2:00</option></select> <button id="jugar">Comenzar</button></div>
+<div id="final" hidden><button id="enviar" hidden>Reintentar envío</button> <button id="repetir" hidden>Volver a practicar</button> <a id="siguiente" hidden target="_top">Siguiente nivel →</a></div>
+<p id="estado" role="status"></p>
+</div></section></div>
+<footer><span>Cursor, toque o flechas · También puedes usar 1, 2 o 3</span><span id="respuesta" role="status"></span></footer>
+</main><script src="banco.js"></script><script src="juego.js"></script></body></html>

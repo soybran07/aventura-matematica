@@ -16,7 +16,7 @@ function closeModal(){$('overlay').classList.add('hide');canvas.focus({preventSc
 function home(){
  if(busy||coinsBusy)return;phase='home';save();const lock=BalamRuta.bloqueo(world());
  if(lock){modal(lock,'Nivel bloqueado');return;}
- modal('<div class="eyebrow">Nivel '+BalamRuta.numero(world())+' de 12</div><h2>'+esc(MUL_GAMES[game].title)+'</h2><div class="settings"><label>Dificultad<select id="route"><option value="apoyo" '+(route==='apoyo'?'selected':'')+'>Con apoyo</option><option value="practica" '+(route==='practica'?'selected':'')+'>Práctica</option></select></label><button id="start" class="primary">'+((st.started||window.BALAM_RESUME)?'Continuar':'Jugar')+'</button></div><details><summary>Cómo jugar</summary><p>'+esc(MUL_GAMES[game].controls)+'</p></details>','Inicio del nivel');
+ modal('<div class="eyebrow">Nivel '+BalamRuta.numero(world())+' de '+BalamRuta.orden.length+'</div><h2>'+esc(MUL_GAMES[game].title)+'</h2><div class="settings"><label>Dificultad<select id="route"><option value="apoyo" '+(route==='apoyo'?'selected':'')+'>Con apoyo</option><option value="practica" '+(route==='practica'?'selected':'')+'>Práctica</option></select></label><button id="start" class="primary">'+((st.started||window.BALAM_RESUME)?'Continuar':'Jugar')+'</button></div><details><summary>Cómo jugar</summary><p>'+esc(MUL_GAMES[game].controls)+'</p></details>','Inicio del nivel');
  if(window.BALAM_RESUME)$('route').disabled=true;
  $('route').onchange=e=>{route=e.target.value;if(!remote){load();$('start').textContent=st.started?'Continuar':'Jugar'}};
  $('start').onclick=begin;

@@ -1,6 +1,6 @@
 'use strict';
 const BalamRuta = (() => {
-  const orden = Object.freeze([5, 6, 0, 1, 2, 3, 4, 7, 8, 9, 10, 11]);
+  const orden = Object.freeze([5, 6, 12, 0, 1, 2, 3, 4, 7, 8, 9, 10, 11]);
   const numero = w => orden.indexOf(w) + 1;
   const siguiente = w => orden[numero(w)] ?? null;
   const pendiente = completo => orden.find(w => !completo(w)) ?? null;
@@ -8,6 +8,7 @@ const BalamRuta = (() => {
   const base = typeof document !== 'undefined' && document.currentScript?.src ? new URL('.', document.currentScript.src).href : null;
   function avanceLocal(w) {
     try {
+      if(w===12)return localStorage.getItem('balam-examen-posicional-v1')==='completo';
       const mult = w >= 7;
       const datos = JSON.parse(localStorage.getItem(mult ? 'balam-multiplicacion-v1' : 'balam-aventura-v3') || '{}');
       const total = w === 5 ? 10 : w === 6 ? 8 : 6;
@@ -19,7 +20,7 @@ const BalamRuta = (() => {
   }
   function enlace(w) {
     if (window.BALAM_APP) return window.BALAM_APP + '?nivel=' + (w + 1);
-    const ruta = w === 5 ? './' : w === 6 ? 'numero-secreto.html' : w >= 7 ? 'multiplicacion/?juego=' + (w - 6) : 'sumas/?nivel=' + (w + 1);
+    const ruta = w === 12 ? 'examen/' : w === 5 ? './' : w === 6 ? 'numero-secreto.html' : w >= 7 ? 'multiplicacion/?juego=' + (w - 6) : 'sumas/?nivel=' + (w + 1);
     return new URL(ruta, base).href;
   }
   function bloqueo(w) {
@@ -29,7 +30,7 @@ const BalamRuta = (() => {
   }
   function botonSiguiente(w) {
     const n = siguiente(w);
-    return n === null ? '<strong>¡Completaste los 12 niveles!</strong>' : '<a class="ruta-link" href="' + enlace(n) + '" target="_top">Siguiente: nivel ' + numero(n) + '</a>';
+    return n === null ? '<strong>¡Completaste los 13 niveles!</strong>' : '<a class="ruta-link" href="' + enlace(n) + '" target="_top">Siguiente: nivel ' + numero(n) + '</a>';
   }
   function activarScroll(root) {
     const area = root.querySelector('.lectura'), button = root.querySelector('.ver-mas');
